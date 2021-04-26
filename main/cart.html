@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookstore | Homepage</title>
+  <link rel="stylesheet" href="build/tailwind.css">
+  <link rel="stylesheet" href="build/style.css">
+  <link rel="stylesheet" href="build/sweetalert2.min.css">
+  <script src="build/js/sweetalert2.all.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- This is an example component -->
+  <div id="preload" class="absolute z-200">
+    <style>
+      .loader-dots div {
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+      }
+
+      .loader-dots div:nth-child(1) {
+        left: 8px;
+        animation: loader-dots1 0.6s infinite;
+      }
+
+      .loader-dots div:nth-child(2) {
+        left: 8px;
+        animation: loader-dots2 0.6s infinite;
+      }
+
+      .loader-dots div:nth-child(3) {
+        left: 32px;
+        animation: loader-dots2 0.6s infinite;
+      }
+
+      .loader-dots div:nth-child(4) {
+        left: 56px;
+        animation: loader-dots3 0.6s infinite;
+      }
+
+      @keyframes loader-dots1 {
+        0% {
+          transform: scale(0);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes loader-dots3 {
+        0% {
+          transform: scale(1);
+        }
+
+        100% {
+          transform: scale(0);
+        }
+      }
+
+      @keyframes loader-dots2 {
+        0% {
+          transform: translate(0, 0);
+        }
+
+        100% {
+          transform: translate(24px, 0);
+        }
+      }
+      /*Overrides for Tailwind CSS */
+
+        /*Form fields*/
+        .dataTables_wrapper select,
+        .dataTables_wrapper .dataTables_filter input {
+            color: #4a5568;
+            /*text-gray-700*/
+            padding-left: 1rem;
+            /*pl-4*/
+            padding-right: 1rem;
+            /*pl-4*/
+            padding-top: .5rem;
+            /*pl-2*/
+            padding-bottom: .5rem;
+            /*pl-2*/
+            line-height: 1.25;
+            /*leading-tight*/
+            border-width: 2px;
+            /*border-2*/
+            border-radius: .25rem;
+            border-color: #edf2f7;
+            /*border-gray-200*/
+            background-color: #edf2f7;
+            /*bg-gray-200*/
+        }
+
+        /*Row Hover*/
+        table.dataTable.hover tbody tr:hover,
+        table.dataTable.display tbody tr:hover {
+            background-color: #ebf4ff;
+            /*bg-indigo-100*/
+        }
+
+        /*Pagination Buttons*/
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
+
+        /*Pagination Buttons - Current selected */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            color: #fff !important;
+            /*text-white*/
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            /*shadow*/
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            background: #667eea !important;
+            /*bg-indigo-500*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
+
+        /*Pagination Buttons - Hover */
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            color: #fff !important;
+            /*text-white*/
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+            /*shadow*/
+            font-weight: 700;
+            /*font-bold*/
+            border-radius: .25rem;
+            /*rounded*/
+            background: #667eea !important;
+            /*bg-indigo-500*/
+            border: 1px solid transparent;
+            /*border border-transparent*/
+        }
+
+        /*Add padding to bottom border */
+        table.dataTable.no-footer {
+            border-bottom: 1px solid #e2e8f0;
+            /*border-b-1 border-gray-300*/
+            margin-top: 0.75em;
+            margin-bottom: 0.75em;
+        }
+
+        /*Change colour of responsive icon*/
+        table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+        table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+            background-color: #667eea !important;
+            /*bg-indigo-500*/
+        }
+    </style>
+    <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen"
+      style="background: rgb(255, 255, 255);">
+      <div class="flex flex-col items-center px-5 py-2 bg-white rounded-lg">
+        <div class="relative block w-20 h-5 mt-2 loader-dots">
+          <div class="absolute top-0 w-3 h-3 mt-1 bg-indigo-500 rounded-full"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 bg-indigo-500 rounded-full"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 bg-indigo-500 rounded-full"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 bg-indigo-500 rounded-full"></div>
+        </div>
+        <div class="mt-2 text-xs font-light text-center text-gray-500">
+          กำลังโหลด...
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      window.setTimeout("fadeMyDiv();", 1000); //call fade in 3 seconds
+    }
+    )
+
+    function fadeMyDiv() {
+      $("#preload").fadeOut('slow');
+    }
+  </script>
+  <style>
+    .scroll-hidden::-webkit-scrollbar {
+      height: 0px;
+      background: transparent;
+      /* make scrollbar transparent */
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <navbar class="w-full h-screen overflow-hidden" style="background: #edf2f7;">
+    <header x-data="{ isOpen: false }" class="bg-white shadow">
+      <nav class="container px-6 py-3 mx-auto">
+        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <a class="text-xl font-bold text-gray-800 lg:text-2xl hover:text-gray-700" href="index.html">ร้านขายหนังสือ</a>
+
+              <!-- Search input on desktop screen -->
+              <!-- <div class="hidden mx-10 md:block">
+                                <input type="text"
+                                    class="w-32 px-4 py-3 text-sm leading-tight text-gray-700 placeholder-gray-500 bg-gray-100 border border-transparent rounded-md lg:w-64 focus:outline-none focus:bg-white focus:shadow-outline focus:border-indigo-400"
+                                    placeholder="ค้นหา" aria-label="Search">
+                            </div> -->
+              <div class="hidden max-w-xs mx-10 md:block">
+                <div
+                  x-data="select({ data: { au: 'Australia', be: 'Belgium', cn: 'China', fr: 'France', de: 'Germany', it: 'Italy', mx: 'Mexico', es: 'Spain', tr: 'Turkey', gb: 'United Kingdom', 'us': 'United States' }, emptyOptionsMessage: 'ค้นหาเพิ่มเติม', name: 'book', placeholder: 'ค้นหาหนังสือ' })"
+                  x-init="init()" @click.away="closeListbox()" @keydown.escape="closeListbox()" class="relative">
+                  <span class="inline-block w-full rounded-md shadow-sm">
+                    <button x-ref="button" @click="toggleListboxVisibility()" :aria-expanded="open"
+                      aria-haspopup="listbox"
+                      class="relative z-0 w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+                      <span x-show="! open" x-text="value in options ? options[value] : placeholder"
+                        :class="{ 'text-gray-500': ! (value in options) }" class="block truncate"></span>
+
+                      <input x-ref="search" x-show="open" x-model="search" @keydown.enter.stop.prevent="selectOption()"
+                        @keydown.arrow-up.prevent="focusPreviousOption()"
+                        @keydown.arrow-down.prevent="focusNextOption()" type="search"
+                        class="w-full h-full form-control focus:outline-none" />
+
+                      <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                          <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+
+                  <div x-show="open" x-transition:leave="transition ease-in duration-100"
+                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-cloak
+                    class="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg">
+                    <ul x-ref="listbox" @keydown.enter.stop.prevent="selectOption()"
+                      @keydown.arrow-up.prevent="focusPreviousOption()" @keydown.arrow-down.prevent="focusNextOption()"
+                      role="listbox"
+                      :aria-activedescendant="focusedOptionIndex ? name + 'Option' + focusedOptionIndex : null"
+                      tabindex="-1"
+                      class="py-1 overflow-auto text-base leading-6 rounded-md shadow-xs max-h-60 focus:outline-none sm:text-sm sm:leading-5">
+                      <template x-for="(key, index) in Object.keys(options)" :key="index">
+                        <li :id="name + 'Option' + focusedOptionIndex" @click="selectOption()"
+                          @mouseenter="focusedOptionIndex = index" @mouseleave="focusedOptionIndex = null" role="option"
+                          :aria-selected="focusedOptionIndex === index"
+                          :class="{ 'text-white bg-indigo-600': index === focusedOptionIndex, 'text-gray-900': index !== focusedOptionIndex }"
+                          class="relative py-2 pl-3 text-gray-900 cursor-default select-none pr-9">
+                          <span x-text="Object.values(options)[index]"
+                            :class="{ 'font-semibold': index === focusedOptionIndex, 'font-normal': index !== focusedOptionIndex }"
+                            class="block font-normal truncate"></span>
+
+                          <span x-show="key === value"
+                            :class="{ 'text-white': index === focusedOptionIndex, 'text-indigo-600': index !== focusedOptionIndex }"
+                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
+                            <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                            </svg>
+                          </span>
+                        </li>
+                      </template>
+
+                      <div x-show="! Object.keys(options).length" x-text="emptyOptionsMessage"
+                        class="px-3 py-2 text-gray-900 cursor-default select-none"></div>
+                    </ul>
+                  </div>
+                </div>
+
+                <script>
+                  function select(config) {
+                    return {
+                      data: config.data,
+
+                      emptyOptionsMessage: config.emptyOptionsMessage ?? 'ค้นหาเพิ่มเติม',
+
+                      focusedOptionIndex: null,
+
+                      name: config.name,
+
+                      open: false,
+
+                      options: {},
+
+                      placeholder: config.placeholder ?? 'ค้นหาเกี่ยวกับหนังสือ',
+
+                      search: '',
+
+                      value: config.value,
+
+                      closeListbox: function () {
+                        this.open = false
+
+                        this.focusedOptionIndex = null
+
+                        this.search = ''
+                      },
+
+                      focusNextOption: function () {
+                        if (this.focusedOptionIndex === null) return this.focusedOptionIndex = Object.keys(this.options).length - 1
+
+                        if (this.focusedOptionIndex + 1 >= Object.keys(this.options).length) return
+
+                        this.focusedOptionIndex++
+
+                        this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
+                          block: "center",
+                        })
+                      },
+
+                      focusPreviousOption: function () {
+                        if (this.focusedOptionIndex === null) return this.focusedOptionIndex = 0
+
+                        if (this.focusedOptionIndex <= 0) return
+
+                        this.focusedOptionIndex--
+
+                        this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
+                          block: "center",
+                        })
+                      },
+
+                      init: function () {
+                        this.options = this.data
+
+                        if (!(this.value in this.options)) this.value = null
+
+                        this.$watch('search', ((value) => {
+                          if (!this.open || !value) return this.options = this.data
+
+                          this.options = Object.keys(this.data)
+                            .filter((key) => this.data[key].toLowerCase().includes(value.toLowerCase()))
+                            .reduce((options, key) => {
+                              options[key] = this.data[key]
+                              return options
+                            }, {})
+                        }))
+                      },
+
+                      selectOption: function () {
+                        if (!this.open) return this.toggleListboxVisibility()
+
+                        this.value = Object.keys(this.options)[this.focusedOptionIndex]
+
+                        this.closeListbox()
+                      },
+
+                      toggleListboxVisibility: function () {
+                        if (this.open) return this.closeListbox()
+
+                        this.focusedOptionIndex = Object.keys(this.options).indexOf(this.value)
+
+                        if (this.focusedOptionIndex < 0) this.focusedOptionIndex = 0
+
+                        this.open = true
+
+                        this.$nextTick(() => {
+                          this.$refs.search.focus()
+
+                          this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
+                            block: "nearest"
+                          })
+                        })
+                      },
+                    }
+                  }
+                </script>
+              </div>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="flex lg:hidden">
+              <button @click="isOpen = !isOpen" type="button"
+                class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600"
+                aria-label="toggle menu">
+                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                  <path fill-rule="evenodd"
+                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
+                  </path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+          <div class="items-center lg:flex " :class="isOpen ? 'block' : 'hidden'">
+            <div class="flex flex-col mt-2 space-y-4 lg:flex-row lg:mt-0 lg:mx-1 lg:space-y-0 ">
+              <a class="my-1 text-sm leading-5 text-gray-700 hover:text-indigo-600 hover:underline md:mx-4 md:my-0"
+                href="index.html">หน้าหลัก</a>
+              <a class="my-1 text-sm leading-5 text-gray-700 hover:text-indigo-600 hover:underline md:mx-4 md:my-0"
+                href="payment.html">แจ้งโอนเงิน</a>
+              <a class="my-1 text-sm leading-5 text-gray-700 hover:text-indigo-600 hover:underline md:mx-4 md:my-0"
+                href="help.html">ช่วยเหลือ</a>
+                <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                  <button @click="open = !open"
+                      class="flex flex-row items-center text-sm text-left text-gray-700 rounded-lg md:mx-4 md:my-0 hover:text-indigo-600 hover:underline focus:outline-none">
+                      <span>บัญชี</span>
+                      <svg fill="currentColor" viewBox="0 0 20 20"
+                          :class="{'rotate-180': open, 'rotate-0': !open}"
+                          class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
+                          <path fill-rule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                      </svg>
+                  </button>
+                  <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                      x-transition:enter-start="transform opacity-0 scale-95"
+                      x-transition:enter-end="transform opacity-100 scale-100"
+                      x-transition:leave="transition ease-in duration-75"
+                      x-transition:leave-start="transform opacity-100 scale-100"
+                      x-transition:leave-end="transform opacity-0 scale-95"
+                      class="absolute right-0 z-20 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                      <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+                          <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                              href="history.html">ประวัติการซื้อ</a>
+                          <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                              href="#">บัญชี</a>
+                          <!-- <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                              href="#">Link #3</a> -->
+                      </div>
+                  </div>
+              </div>
+              <a class="relative my-1 text-sm leading-5 text-gray-700 hover:text-indigo-600 hover:underline md:mx-4 md:my-0"
+                href="cart.html"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.70711 15.2929C4.07714 15.9229 4.52331 17 5.41421 17H17M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM9 19C9 20.1046 8.10457 21 7 21C5.89543 21 5 20.1046 5 19C5 17.8954 5.89543 17 7 17C8.10457 17 9 17.8954 9 19Z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="absolute top-0 left-0 p-1 text-xs text-white bg-indigo-500 rounded-full"></span>
+
+              </a>
+            </div>
+            <script>
+              (function () {
+
+                $("#cart").on("click", function () {
+                  $(".shopping-cart").fadeToggle("fast");
+                });
+
+              })();
+            </script>
+            <div class="flex items-center py-2 -mx-1 md:mx-0">
+              <a class="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white bg-gray-500 rounded hover:bg-indigo-600 md:mx-2 lg:w-auto"
+                href="login.html">ลงชื่อเข้าใช้</a>
+              <a class="block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white bg-indigo-500 rounded hover:bg-indigo-600 md:mx-2 lg:w-auto"
+                href="register.html">Join us !</a>
+            </div>
+
+            <!-- Search input on mobile screen -->
+            <div class="mt-3 md:hidden">
+              <input type="text"
+                class="w-full px-4 py-3 text-sm leading-tight text-gray-700 placeholder-gray-500 bg-gray-100 rounded-md focus:outline-none focus:bg-white focus:shadow-outline"
+                placeholder="Search" aria-label="Search">
+            </div>
+          </div>
+        </div>
+
+
+      </nav>
+    </header>
+  </navbar>
+
+  <div class="flex justify-center py-6 bg-gray-100">
+    <div class="flex flex-col w-full p-8 text-gray-800 bg-white rounded-md shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
+      <div class="flex-1">
+        <table class="w-full text-sm lg:text-base" cellspacing="0">
+          <thead>
+            <tr class="h-12 uppercase">
+              <th class="hidden md:table-cell"></th>
+              <th class="text-left">สินค้า</th>
+              <th class="pl-5 text-left lg:text-right lg:pl-0">
+                <span class="lg:hidden" title="Quantity">จำนวน</span>
+                <span class="hidden lg:inline">จำนวน</span>
+              </th>
+              <th class="hidden text-right md:table-cell">ราคาต่อชิ้น</th>
+              <th class="text-right">ราคาทั้งหมด</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row1">
+              <td class="hidden pb-4 md:table-cell">
+                <a href="#">
+                  <img src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg" class="w-20 rounded"
+                    alt="Thumbnail">
+                </a>
+              </td>
+              <td>
+                <a href="#">
+                  <p class="mb-2 md:ml-4">Earphone</p>
+                  <form action="" method="POST">
+                    <button type="submit" class="text-gray-700 md:ml-4">
+                      <small>(Remove item)</small>
+                    </button>
+                  </form>
+                </a>
+              </td>
+              <td class="justify-center mt-6 md:justify-end md:flex">
+                <div class="w-20 h-10">
+                  <div class="relative flex flex-row w-full h-8">
+                    <input type="number" value="2" id="amount1"
+                      class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                  </div>
+                </div>
+              </td>
+              <td class="hidden text-right md:table-cell">
+                <span class="text-sm font-medium lg:text-base" id="price1">
+                  10.00
+                </span>
+              </td>
+              <td class="text-right">
+                <span class="text-sm font-medium lg:text-base" id="total1">
+                  20.00
+                </span>
+              </td>
+            </tr>
+            <tr id="row2">
+              <td class="hidden pb-4 md:table-cell">
+                <a href="#">
+                  <img src="https://limg.app/i/Cute-Constrictor-Super-Sexy-Military-Enforcer-W7mvBp.png"
+                    class="w-20 rounded" alt="Thumbnail">
+                </a>
+              </td>
+              <td>
+                <p class="mb-2 md:ml-4">Tesla Model 3</p>
+                <form action="" method="POST">
+                  <button type="submit" class="text-gray-700 md:ml-4">
+                    <small>(Remove item)</small>
+                  </button>
+                </form>
+              </td>
+              <td class="justify-center md:justify-end md:flex md:mt-4">
+                <div class="w-20 h-10">
+                  <div class="relative flex flex-row w-full h-8">
+                    <input type="number" value="3"  id="amount2"
+                      class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                  </div>
+                </div>
+              </td>
+              <td class="hidden text-right md:table-cell">
+                <span class="text-sm font-medium lg:text-base" id="price2">
+                  49,600.01
+                </span>
+              </td>
+              <td class="text-right">
+                <span class="text-sm font-medium lg:text-base" id="total2">
+                  148,800.03
+                </span>
+              </td>
+            </tr>
+            <tr id="row3">
+              <td class="hidden pb-4 md:table-cell">
+                <a href="#">
+                  <img src="https://limg.app/i/Successful-Spider-Biblical-Mutant---Total-War-lKoE7D.jpeg"
+                    class="w-20 rounded" alt="Thumbnail">
+                </a>
+              </td>
+              <td>
+                <p class="mb-2 md:ml-4">Bic 4 colour pen</p>
+                <form action="" method="POST">
+                  <button type="submit" class="text-gray-700 md:ml-4">
+                    <small>(Remove item)</small>
+                  </button>
+                </form>
+              </td>
+              <td class="justify-center md:justify-end md:flex md:mt-8">
+                <div class="w-20 h-10">
+                  <div class="relative flex flex-row w-full h-8">
+                    <input type="number" value="5" id="amount3"
+                      class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
+                  </div>
+                </div>
+
+              </td>
+              <td class="hidden text-right md:table-cell">
+                <span class="text-sm font-medium lg:text-base" id="price3">
+                  1.50
+                </span>
+              </td>
+              <td class="text-right">
+                <span class="text-sm font-medium lg:text-base" id="total3">
+                  7.50
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pb-6 mt-6">
+        <div class="my-4 mt-6 -mx-2 lg:flex">
+          <div class="lg:px-2 lg:w-1/2">
+            <div class="p-4 bg-gray-100 rounded-full">
+              <h1 class="ml-2 font-bold uppercase">รายละเอียดเพิ่มเติม</h1>
+            </div>
+            <div class="p-4">
+              <p class="mb-4 italic">If you have some information for the seller you can leave them in the box below</p>
+              <textarea class="w-full h-24 p-2 bg-gray-100 rounded"></textarea>
+              <a href="index.html">
+                <button
+                class="px-4 py-2 font-semibold tracking-wider text-white bg-indigo-500 rounded hover:bg-indigo-600">ย้อนกลับ</button>
+            </a>
+            <button onclick="calculate()"
+                class="px-4 py-2 font-semibold tracking-wider text-indigo-600 bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">คำนวณราคาใหม่</button>
+            <button onclick="delete_row()"
+                class="px-4 py-2 font-semibold tracking-wider text-indigo-600 bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">ลบรายการทั้งหมด</button>
+            </div>
+          </div>
+          <div class="lg:px-2 lg:w-1/2">
+            <div class="p-4 bg-gray-100 rounded-full">
+              <h1 class="ml-2 font-bold uppercase">รายละเอียดการจัดส่ง</h1>
+            </div>
+            <div class="p-4">
+              <p class="mb-6 italic">Shipping and additionnal costs are calculated based on values you have entered</p>
+              <!-- <div class="flex justify-between border-b">
+                <div class="m-2 text-lg font-bold text-center text-gray-800 lg:px-4 lg:py-2 lg:text-xl">
+                  Subtotal
+                </div>
+                <div class="m-2 font-bold text-center text-gray-900 lg:px-4 lg:py-2 lg:text-lg">
+                  148,827.53 ฿
+                </div>
+              </div> -->
+              <!-- เผื่อ มี ลด หนะ -->
+              <!-- <div class="flex justify-between pt-4 border-b">
+                <div class="flex m-2 text-lg font-bold text-gray-800 lg:px-4 lg:py-2 lg:text-xl">
+                  <form action="" method="POST">
+                    <button type="submit" class="mt-1 mr-2 lg:mt-2">
+                      <svg aria-hidden="true" data-prefix="far" data-icon="trash-alt"
+                        class="w-4 text-red-600 hover:text-red-800" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512">
+                        <path fill="currentColor"
+                          d="M268 416h24a12 12 0 0012-12V188a12 12 0 00-12-12h-24a12 12 0 00-12 12v216a12 12 0 0012 12zM432 80h-82.41l-34-56.7A48 48 0 00274.41 0H173.59a48 48 0 00-41.16 23.3L98.41 80H16A16 16 0 000 96v16a16 16 0 0016 16h16v336a48 48 0 0048 48h288a48 48 0 0048-48V128h16a16 16 0 0016-16V96a16 16 0 00-16-16zM171.84 50.91A6 6 0 01177 48h94a6 6 0 015.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0012-12V188a12 12 0 00-12-12h-24a12 12 0 00-12 12v216a12 12 0 0012 12z" />
+                      </svg>
+                    </button>
+                  </form>
+                  Coupon "90off"
+                </div>
+                <div class="m-2 font-bold text-center text-green-700 lg:px-4 lg:py-2 lg:text-lg">
+                  -133,944.77 ฿
+                </div>
+              </div> -->
+              <!-- <div class="flex justify-between pt-4 border-b">
+                <div class="m-2 text-lg font-bold text-center text-gray-800 lg:px-4 lg:py-2 lg:text-xl">
+                  New Subtotal
+                </div>
+                <div class="m-2 font-bold text-center text-gray-900 lg:px-4 lg:py-2 lg:text-lg">
+                  14,882.75 ฿
+                </div>
+              </div> -->
+              <!-- <div class="flex justify-between pt-4 border-b">
+                <div class="m-2 text-lg font-bold text-center text-gray-800 lg:px-4 lg:py-2 lg:text-xl">
+                  Tax
+                </div>
+                <div class="m-2 font-bold text-center text-gray-900 lg:px-4 lg:py-2 lg:text-lg">
+                  2,976.55 ฿
+                </div>
+              </div> -->
+              <div class="flex justify-between pt-4 border-b">
+                <div class="m-2 text-lg font-bold text-center text-gray-800 lg:px-4 lg:py-2 lg:text-xl">
+                  Total
+                </div>
+                <div class="m-2 font-bold text-center text-gray-900 lg:px-4 lg:py-2 lg:text-lg" id="all_total">
+                  17,859.3 ฿
+                </div>
+              </div>
+              <a href="history.html"><!--link to pay page-->
+                <button
+                  class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
+                  <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                    <path fill="currentColor"
+                      d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
+                  </svg>
+                  <span class="ml-2 mt-5px">ดำเนินการต่อ</span>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="px-6 py-12 text-gray-600 bg-gray-100 lg:px-8">
+    <div class="flex flex-col items-center max-w-screen-xl mx-auto mt-8">
+      <div class="flex items-center space-x-2">
+        <a href="#" class="hover:text-gray-200">
+          <span class="sr-only">Facebook</span>
+          <svg class="w-6 h-6 text-gray-500 hover:text-gray-800" aria-hidden="true" fill="currentColor"
+            viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+              d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+              clip-rule="evenodd" />
+          </svg>
+        </a>
+        <a href="#" class="hover:text-gray-200">
+          <span class="sr-only">Instagram</span>
+          <svg class="w-6 h-6 text-gray-500 hover:text-gray-800" aria-hidden="true" fill="currentColor"
+            viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+              d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+              clip-rule="evenodd" />
+          </svg>
+        </a>
+        <a href="#" class="hover:text-gray-200">
+          <span class="sr-only">Twitter</span>
+          <svg class="w-6 h-6 text-gray-500 hover:text-gray-800" aria-hidden="true" fill="currentColor"
+            viewBox="0 0 24 24">
+            <path
+              d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+          </svg>
+        </a>
+      </div>
+      <div class="mt-4 text-sm">
+        ©2021 Codingtime. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+
+<script>
+// window.onload = function() {
+// if (window.jQuery) {  
+//     // jQuery is loaded  
+//     alert("Yeah!");
+// } else {
+//     // jQuery is not loaded
+//     alert("Doesn't Work");
+// }
+//}
+const calculate = () => {
+  console.log(parseFloat($("#price2").text().replace(',', '')));
+    total1.innerText = (parseFloat($("#price1").text().replace(',', '')) * parseInt(amount1.value)).toFixed(2);
+    total2.innerText = (parseFloat($("#price2").text().replace(',', '')) * parseInt(amount2.value)).toFixed(2);
+    total3.innerText = (parseFloat($("#price3").text().replace(',', '')) * parseInt(amount3.value)).toFixed(2);
+    all_total.innerText = (parseFloat(total1.innerText) + parseFloat(total2.innerText) + parseFloat(total3.innerText)).toFixed(2) + " ฿";
+}
+const delete_row = () => {
+    row1.remove();
+    row2.remove();
+    row3.remove();
+}
+</script>
+
+</html>

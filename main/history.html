@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookstore | Homepage</title>
+  <link rel="stylesheet" href="build/tailwind.css">
+  <link rel="stylesheet" href="build/style.css">
+  <link rel="stylesheet" href="build/sweetalert2.min.css">
+  <script src="build/js/sweetalert2.all.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <!--Regular Datatables CSS-->
+  <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!--Responsive Extension Datatables CSS-->
+  <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <style>
+    :root {
+      --main-color: #2b1ac4;
+    }
+
+    .bg-main-color {
+      background-color: var(--main-color);
+    }
+
+    .text-main-color {
+      color: var(--main-color);
+    }
+
+    .border-main-color {
+      border-color: var(--main-color);
+    }
+
+    .dataTables_wrapper select,
+    .dataTables_wrapper .dataTables_filter input {
+      color: #4a5568;
+      /*text-gray-700*/
+      padding-left: 1rem;
+      /*pl-4*/
+      padding-right: 1rem;
+      /*pl-4*/
+      padding-top: .5rem;
+      /*pl-2*/
+      padding-bottom: .5rem;
+      /*pl-2*/
+      line-height: 1.25;
+      /*leading-tight*/
+      border-width: 2px;
+      /*border-2*/
+      border-radius: .25rem;
+      border-color: #edf2f7;
+      /*border-gray-200*/
+      background-color: #edf2f7;
+      /*bg-gray-200*/
+    }
+
+    /*Row Hover*/
+    table.dataTable.hover tbody tr:hover,
+    table.dataTable.display tbody tr:hover {
+      background-color: #ebf4ff;
+      /*bg-indigo-100*/
+    }
+
+    /*Pagination Buttons*/
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      font-weight: 700;
+      /*font-bold*/
+      border-radius: .25rem;
+      /*rounded*/
+      border: 1px solid transparent;
+      /*border border-transparent*/
+    }
+
+    /*Pagination Buttons - Current selected */
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+      color: #fff !important;
+      /*text-white*/
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+      /*shadow*/
+      font-weight: 700;
+      /*font-bold*/
+      border-radius: .25rem;
+      /*rounded*/
+      background: #667eea !important;
+      /*bg-indigo-500*/
+      border: 1px solid transparent;
+      /*border border-transparent*/
+    }
+
+    /*Pagination Buttons - Hover */
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      color: #fff !important;
+      /*text-white*/
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+      /*shadow*/
+      font-weight: 700;
+      /*font-bold*/
+      border-radius: .25rem;
+      /*rounded*/
+      background: #667eea !important;
+      /*bg-indigo-500*/
+      border: 1px solid transparent;
+      /*border border-transparent*/
+    }
+
+    /*Add padding to bottom border */
+    table.dataTable.no-footer {
+      border-bottom: 1px solid #e2e8f0;
+      /*border-b-1 border-gray-300*/
+      margin-top: 0.75em;
+      margin-bottom: 0.75em;
+    }
+
+    /*Change colour of responsive icon*/
+    table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+    table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+      background-color: #667eea !important;
+      /*bg-indigo-500*/
+    }
+  </style>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+
+
+  <div class="bg-gray-100">
+    <!-- This is an example component -->
+    <div id="preload" class="absolute z-200">
+      <style>
+        .loader-dots div {
+          animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+
+        .loader-dots div:nth-child(1) {
+          left: 8px;
+          animation: loader-dots1 0.6s infinite;
+        }
+
+        .loader-dots div:nth-child(2) {
+          left: 8px;
+          animation: loader-dots2 0.6s infinite;
+        }
+
+        .loader-dots div:nth-child(3) {
+          left: 32px;
+          animation: loader-dots2 0.6s infinite;
+        }
+
+        .loader-dots div:nth-child(4) {
+          left: 56px;
+          animation: loader-dots3 0.6s infinite;
+        }
+
+        @keyframes loader-dots1 {
+          0% {
+            transform: scale(0);
+          }
+
+          100% {
+            transform: scale(1);
+          }
+        }
+
+        @keyframes loader-dots3 {
+          0% {
+            transform: scale(1);
+          }
+
+          100% {
+            transform: scale(0);
+          }
+        }
+
+        @keyframes loader-dots2 {
+          0% {
+            transform: translate(0, 0);
+          }
+
+          100% {
+            transform: translate(24px, 0);
+          }
+        }
+      </style>
+      <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen"
+        style="background: rgb(255, 255, 255);">
+        <div class="flex flex-col items-center px-5 py-2 bg-white rounded-lg">
+          <div class="relative block w-20 h-5 mt-2 loader-dots">
+            <div class="absolute top-0 w-3 h-3 mt-1 bg-indigo-500 rounded-full"></div>
+            <div class="absolute top-0 w-3 h-3 mt-1 bg-indigo-500 rounded-full"></div>
+            <div class="absolute top-0 w-3 h-3 mt-1 bg-indigo-500 rounded-full"></div>
+            <div class="absolute top-0 w-3 h-3 mt-1 bg-indigo-500 rounded-full"></div>
+          </div>
+          <div class="mt-2 text-xs font-light text-center text-gray-500">
+            กำลังโหลด...
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        window.setTimeout("fadeMyDiv();", 3000); //call fade in 3 seconds
+      }
+      )
+
+      function fadeMyDiv() {
+        $("#preload").fadeOut('slow');
+      }
+    </script>
+    <style>
+      .scroll-hidden::-webkit-scrollbar {
+        height: 0px;
+        background: transparent;
+        /* make scrollbar transparent */
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <navbar class="w-full h-screen overflow-hidden" style="background: #edf2f7;">
+      <header x-data="{ isOpen: false }" class="bg-white shadow">
+        <nav class="container px-6 py-3 mx-auto">
+          <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <a class="text-xl font-bold text-gray-800 lg:text-2xl hover:text-gray-700"
+                  href="index.html">ร้านขายหนังสือ</a>
+
+                <!-- Search input on desktop screen -->
+                <!-- <div class="hidden mx-10 md:block">
+                                <input type="text"
+                                    class="w-32 px-4 py-3 text-sm leading-tight text-gray-700 placeholder-gray-500 bg-gray-100 border border-transparent rounded-md lg:w-64 focus:outline-none focus:bg-white focus:shadow-outline focus:border-indigo-400"
+                                    placeholder="ค้นหา" aria-label="Search">
+                            </div> -->
+                <div class="hidden max-w-xs mx-10 md:block">
+                  <div
+                    x-data="select({ data: { au: 'Australia', be: 'Belgium', cn: 'China', fr: 'France', de: 'Germany', it: 'Italy', mx: 'Mexico', es: 'Spain', tr: 'Turkey', gb: 'United Kingdom', 'us': 'United States' }, emptyOptionsMessage: 'ค้นหาเพิ่มเติม', name: 'book', placeholder: 'ค้นหาหนังสือ' })"
+                    x-init="init()" @click.away="closeListbox()" @keydown.escape="closeListbox()" class="relative">
+                    <span class="inline-block w-full rounded-md shadow-sm">
+                      <button x-ref="button" @click="toggleListboxVisibility()" :aria-expanded="open"
+                        aria-haspopup="listbox"
+                        class="relative z-0 w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+                        <span x-show="! open" x-text="value in options ? options[value] : placeholder"
+                          :class="{ 'text-gray-500': ! (value in options) }" class="block truncate"></span>
+
+                        <input x-ref="search" x-show="open" x-model="search"
+                          @keydown.enter.stop.prevent="selectOption()" @keydown.arrow-up.prevent="focusPreviousOption()"
+                          @keydown.arrow-down.prevent="focusNextOption()" type="search"
+                          class="w-full h-full form-control focus:outline-none" />
+
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                          <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                            <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+
+                    <div x-show="open" x-transition:leave="transition ease-in duration-100"
+                      x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-cloak
+                      class="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg">
+                      <ul x-ref="listbox" @keydown.enter.stop.prevent="selectOption()"
+                        @keydown.arrow-up.prevent="focusPreviousOption()"
+                        @keydown.arrow-down.prevent="focusNextOption()" role="listbox"
+                        :aria-activedescendant="focusedOptionIndex ? name + 'Option' + focusedOptionIndex : null"
+                        tabindex="-1"
+                        class="py-1 overflow-auto text-base leading-6 rounded-md shadow-xs max-h-60 focus:outline-none sm:text-sm sm:leading-5">
+                        <template x-for="(key, index) in Object.keys(options)" :key="index">
+                          <li :id="name + 'Option' + focusedOptionIndex" @click="selectOption()"
+                            @mouseenter="focusedOptionIndex = index" @mouseleave="focusedOptionIndex = null"
+                            role="option" :aria-selected="focusedOptionIndex === index"
+                            :class="{ 'text-white bg-indigo-600': index === focusedOptionIndex, 'text-gray-900': index !== focusedOptionIndex }"
+                            class="relative py-2 pl-3 text-gray-900 cursor-default select-none pr-9">
+                            <span x-text="Object.values(options)[index]"
+                              :class="{ 'font-semibold': index === focusedOptionIndex, 'font-normal': index !== focusedOptionIndex }"
+                              class="block font-normal truncate"></span>
+
+                            <span x-show="key === value"
+                              :class="{ 'text-white': index === focusedOptionIndex, 'text-indigo-600': index !== focusedOptionIndex }"
+                              class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
+                              <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clip-rule="evenodd" />
+                              </svg>
+                            </span>
+                          </li>
+                        </template>
+
+                        <div x-show="! Object.keys(options).length" x-text="emptyOptionsMessage"
+                          class="px-3 py-2 text-gray-900 cursor-default select-none"></div>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <script>
+                    function select(config) {
+                      return {
+                        data: config.data,
+
+                        emptyOptionsMessage: config.emptyOptionsMessage ?? 'ค้นหาเพิ่มเติม',
+
+                        focusedOptionIndex: null,
+
+                        name: config.name,
+
+                        open: false,
+
+                        options: {},
+
+                        placeholder: config.placeholder ?? 'ค้นหาเกี่ยวกับหนังสือ',
+
+                        search: '',
+
+                        value: config.value,
+
+                        closeListbox: function () {
+                          this.open = false
+
+                          this.focusedOptionIndex = null
+
+                          this.search = ''
+                        },
+
+                        focusNextOption: function () {
+                          if (this.focusedOptionIndex === null) return this.focusedOptionIndex = Object.keys(this.options).length - 1
+
+                          if (this.focusedOptionIndex + 1 >= Object.keys(this.options).length) return
+
+                          this.focusedOptionIndex++
+
+                          this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
+                            block: "center",
+                          })
+                        },
+
+                        focusPreviousOption: function () {
+                          if (this.focusedOptionIndex === null) return this.focusedOptionIndex = 0
+
+                          if (this.focusedOptionIndex <= 0) return
+
+                          this.focusedOptionIndex--
+
+                          this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
+                            block: "center",
+                          })
+                        },
+
+                        init: function () {
+                          this.options = this.data
+
+                          if (!(this.value in this.options)) this.value = null
+
+                          this.$watch('search', ((value) => {
+                            if (!this.open || !value) return this.options = this.data
+
+                            this.options = Object.keys(this.data)
+                              .filter((key) => this.data[key].toLowerCase().includes(value.toLowerCase()))
+                              .reduce((options, key) => {
+                                options[key] = this.data[key]
+                                return options
+                              }, {})
+                          }))
+                        },
+
+                        selectOption: function () {
+                          if (!this.open) return this.toggleListboxVisibility()
+
+                          this.value = Object.keys(this.options)[this.focusedOptionIndex]
+
+                          this.closeListbox()
+                        },
+
+                        toggleListboxVisibility: function () {
+                          if (this.open) return this.closeListbox()
+
+                          this.focusedOptionIndex = Object.keys(this.options).indexOf(this.value)
+
+                          if (this.focusedOptionIndex < 0) this.focusedOptionIndex = 0
+
+                          this.open = true
+
+                          this.$nextTick(() => {
+                            this.$refs.search.focus()
+
+                            this.$refs.listbox.children[this.focusedOptionIndex].scrollIntoView({
+                              block: "nearest"
+                            })
+                          })
+                        },
+                      }
+                    }
+                  </script>
+                </div>
+              </div>
+
+              <!-- Mobile menu button -->
+              <div class="flex lg:hidden">
+                <button @click="isOpen = !isOpen" type="button"
+                  class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600"
+                  aria-label="toggle menu">
+                  <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                    <path fill-rule="evenodd"
+                      d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
+                    </path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+            <div class="items-center lg:flex " :class="isOpen ? 'block' : 'hidden'">
+              <div class="flex flex-col mt-2 space-y-4 lg:flex-row lg:mt-0 lg:mx-1 lg:space-y-0 ">
+                <a class="my-1 text-sm leading-5 text-gray-700 hover:text-indigo-600 hover:underline md:mx-4 md:my-0"
+                  href="index.html">หน้าหลัก</a>
+                <a class="my-1 text-sm leading-5 text-gray-700 hover:text-indigo-600 hover:underline md:mx-4 md:my-0"
+                  href="payment.html">แจ้งโอนเงิน</a>
+                <a class="my-1 text-sm leading-5 text-gray-700 hover:text-indigo-600 hover:underline md:mx-4 md:my-0"
+                  href="help.html">ช่วยเหลือ</a>
+                <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                  <button @click="open = !open"
+                    class="flex flex-row items-center text-sm text-left text-gray-700 rounded-lg md:mx-4 md:my-0 hover:text-indigo-600 hover:underline focus:outline-none">
+                    <span>บัญชี</span>
+                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+                      class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
+                      <path fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                  <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95"
+                    class="absolute right-0 z-20 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                    <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+                      <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                        href="history.html">ประวัติการซื้อ</a>
+                      <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                        href="#">บัญชี</a>
+                      <!-- <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                                    href="#">Link #3</a> -->
+                    </div>
+                  </div>
+                </div>
+                <a class="relative my-1 text-sm leading-5 text-gray-700 hover:text-indigo-600 hover:underline md:mx-4 md:my-0"
+                  href="cart.html"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.70711 15.2929C4.07714 15.9229 4.52331 17 5.41421 17H17M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM9 19C9 20.1046 8.10457 21 7 21C5.89543 21 5 20.1046 5 19C5 17.8954 5.89543 17 7 17C8.10457 17 9 17.8954 9 19Z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <span class="absolute top-0 left-0 p-1 text-xs text-white bg-indigo-500 rounded-full"></span>
+
+                </a>
+              </div>
+              <script>
+                (function () {
+
+                  $("#cart").on("click", function () {
+                    $(".shopping-cart").fadeToggle("fast");
+                  });
+
+                })();
+              </script>
+              <div class="flex items-center py-2 -mx-1 md:mx-0">
+                <nav :class="{'flex': open, 'hidden': !open}"
+                  class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+                  <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                    <button @click="open = !open"
+                      class="flex flex-row items-center w-full px-4 py-2 mt-2 space-x-2 text-sm font-semibold text-left bg-transparent hover:bg-indigo-800 hover:text-white md:w-auto md:inline md:mt-0 md:ml-4 focus:bg-indigo-800 focus:text-white focus:outline-none focus:shadow-outline">
+                      <span>Thanawat J.</span>
+                      <img class="inline h-6 rounded-full"
+                        src="https://media.discordapp.net/attachments/799941031604125707/831632947341688912/unknown.png?width=1096&height=1096">
+                      <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+                        class="inline w-4 h-4 transition-transform duration-200 transform">
+                        <path fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                    </button>
+                    <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                      x-transition:enter-start="transform opacity-0 scale-95"
+                      x-transition:enter-end="transform opacity-100 scale-100"
+                      x-transition:leave="transition ease-in duration-75"
+                      x-transition:leave-start="transform opacity-100 scale-100"
+                      x-transition:leave-end="transform opacity-0 scale-95"
+                      class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                      <div class="py-2 text-sm text-blue-800 bg-white border rounded-sm shadow-sm border-main-color">
+                        <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                          href="profile.html">ข้อมูลส่วนตัว</a>
+                        <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                          href="help.html">ช่วยเหลือ</a>
+                        <div class="border-b"></div>
+                        <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                          href="#">ออกจากระบบ</a>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+
+              <!-- Search input on mobile screen -->
+              <div class="mt-3 md:hidden">
+                <input type="text"
+                  class="w-full px-4 py-3 text-sm leading-tight text-gray-700 placeholder-gray-500 bg-gray-100 rounded-md focus:outline-none focus:bg-white focus:shadow-outline"
+                  placeholder="Search" aria-label="Search">
+              </div>
+            </div>
+          </div>
+
+        </nav>
+      </header>
+    </navbar>
+    <!-- End of Navbar -->
+    <div x-data="setup()" x-init="$refs.loading.classList.add('hidden');" @resize.window="watchScreen()">
+      <div class="flex h-screen antialiased text-gray-900 bg-gray-100 dark:bg-dark dark:text-light">
+        <!-- Loading screen -->
+        <div x-ref="loading"
+          class="fixed inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-indigo-800">
+          Loading.....
+        </div>
+
+        <!-- Sidebar -->
+        <div class="flex flex-shrink-0 transition-all">
+          <div x-show="isSidebarOpen" @click="isSidebarOpen = false"
+            class="fixed inset-0 z-10 bg-black bg-opacity-50 lg:hidden"></div>
+          <div x-show="isSidebarOpen" class="fixed inset-y-0 z-10 w-16 bg-white"></div>
+
+          <!-- Mobile bottom bar -->
+          <nav aria-label="Options"
+            class="fixed inset-x-0 bottom-0 flex flex-row-reverse items-center justify-between px-4 py-2 bg-white border-t border-indigo-100 sm:hidden shadow-t rounded-t-3xl">
+            <!-- Menu button -->
+            <button
+              @click="(isSidebarOpen && currentSidebarTab == 'linksTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'linksTab'"
+              class="p-2 transition-colors rounded-lg shadow-md hover:bg-indigo-800 hover:text-white focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-white focus:ring-offset-2"
+              :class="(isSidebarOpen && currentSidebarTab == 'linksTab') ? 'text-white bg-indigo-600' : 'text-gray-500 bg-white'">
+              <span class="sr-only">Toggle sidebar</span>
+              <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+              </svg>
+            </button>
+
+            <!-- Logo -->
+
+            <!-- User avatar button -->
+            <div class="relative flex items-center flex-shrink-0 p-2" x-data="{ isOpen: false }">
+              <div x-show="isOpen" @click.away="isOpen = false" @keydown.escape="isOpen = false" x-ref="userMenu"
+                tabindex="-1"
+                class="absolute w-48 py-1 mt-2 origin-bottom-left bg-white rounded-md shadow-lg left-10 bottom-14 focus:outline-none"
+                role="menu" aria-orientation="vertical" aria-label="user menu">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your
+                  Profile</a>
+
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+              </div>
+            </div>
+          </nav>
+
+          <!-- Left mini bar -->
+          <nav aria-label="Options"
+            class="z-20 flex-col items-center flex-shrink-0 hidden w-16 py-4 bg-white border-r-2 border-indigo-100 shadow-md sm:flex ">
+            <div class="flex flex-col items-center flex-1 p-2 space-y-4">
+              <!-- Menu button -->
+              <button
+                @click="(isSidebarOpen && currentSidebarTab == 'linksTab') ? isSidebarOpen = false : isSidebarOpen = true; currentSidebarTab = 'linksTab'"
+                class="p-2 transition-colors rounded-lg shadow-md hover:bg-indigo-800 hover:text-white focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-white focus:ring-offset-2"
+                :class="(isSidebarOpen && currentSidebarTab == 'linksTab') ? 'text-white bg-indigo-600' : 'text-gray-500 bg-white'">
+                <span class="sr-only">Toggle sidebar</span>
+                <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                </svg>
+              </button>
+            </div>
+
+          </nav>
+
+          <div x-transition:enter="transform transition-transform duration-300"
+            x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+            x-transition:leave="transform transition-transform duration-300" x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="-translate-x-full" x-show="isSidebarOpen"
+            class="fixed inset-y-0 left-0 z-10 flex-shrink-0 w-64 bg-white border-r-2 border-indigo-100 shadow-lg sm:left-16 rounded-tr-3xl rounded-br-3xl sm:w-72 lg:static lg:w-64">
+            <nav x-show="currentSidebarTab == 'linksTab'" aria-label="Main" class="flex flex-col h-full">
+
+              <!-- Links -->
+              <div class="flex-1 px-4 space-y-2 overflow-hidden hover:overflow-auto">
+                <a href="#"
+                  class="flex items-center space-x-2 text-indigo-600 transition-colors rounded-lg group hover:bg-indigo-600 hover:text-white">
+                  <span aria-hidden="true"
+                    class="p-2 transition-colors rounded-lg group-hover:bg-indigo-700 group-hover:text-white">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                  </span>
+                  <span>หน้าหลัก</span>
+                </a>
+                <a href="#"
+                  class="flex items-center space-x-2 text-indigo-600 transition-colors rounded-lg group hover:bg-indigo-600 hover:text-white">
+                  <span aria-hidden="true"
+                    class="p-2 transition-colors rounded-lg group-hover:bg-indigo-700 group-hover:text-white">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </span>
+                  <span>ข้อมูลส่วนตัว</span>
+                </a>
+                <a href="#" class="flex items-center w-full space-x-2 text-white bg-indigo-600 rounded-lg">
+                  <span aria-hidden="true" class="p-2 bg-indigo-700 rounded-lg">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </span>
+                  <span>ประวัติการซื้อ</span>
+                </a>
+              </div>
+
+              <div class="flex-shrink-0 p-4 mt-10">
+                <div class="hidden p-2 space-y-6 bg-gray-100 rounded-lg md:block">
+                  <button
+                    class="w-full px-4 py-2 text-center text-white transition-colors bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-gray-100">
+                    ออกจากระบบ
+                  </button>
+                </div>
+
+                <button
+                  class="w-full px-4 py-2 text-center text-white transition-colors bg-indigo-600 rounded-lg md:hidden hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-gray-100">
+                  ออกจากระบบ
+                </button>
+              </div>
+            </nav>
+
+            <section x-show="currentSidebarTab == 'messagesTab'" class="px-4 py-6">
+              <h2 class="text-xl">Messages</h2>
+            </section>
+
+            <section x-show="currentSidebarTab == 'notificationsTab'" class="px-4 py-6">
+              <h2 class="text-xl">Notifications</h2>
+            </section>
+          </div>
+        </div>
+
+        <div id='recipients' class="p-8 mt-2 bg-white rounded shadow lg:mt-6 lg:mt-0 mx-auto w-8/12 h-3/6">
+
+
+          <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+            <thead>
+              <tr>
+                <th data-priority="1">เลขคำสั่งซื้อ</th>
+                <th data-priority="2">รายการหนังสือ</th>
+                <th data-priority="3">จำนวนเงิน</th>
+                <th data-priority="4">สถานะ</th>
+                <th data-priority="5">จัดการ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">001</td>
+                <td class="text-center">
+                  <div><button data-toggle="modal" data-target="order_info"
+                      class="px-2 py-1 text-white transition-all rounded-md bg-blue-500 modal-open">ดูทั้งหมด</button>
+                  </div>
+                </td>
+                <td class="text-center">100</td>
+                <td class="text-center">
+                  <div><button class="px-2 py-1 transition-all rounded-md text-red-500 "
+                      id="waiting">รอการแจ้งโอน</button></div>
+                </td>
+                <td class="text-center p-auto">
+                  <a href="#">
+                    <button class="px-2 py-1 transition-all rounded-md text-white bg-red-600">โอนตอนนี้</button>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center">002</td>
+                <td class="text-center">
+                  <div><button data-toggle="modal" data-target="order_info"
+                      class="px-2 py-1 text-white transition-all rounded-md bg-blue-500 modal-open">ดูทั้งหมด</button>
+                  </div>
+                </td>
+                <td class="text-center">200</td>
+                <td class="text-center">
+                  <div><button class="px-2 py-1 transition-all rounded-md text-green-500"
+                      id="in_progressing1">จัดส่งสำเร็จ</button></div>
+                </td>
+                <td class="text-center p-auto">
+                  <div><button data-toggle="modal" data-target="review" id="btn_review"
+                      class="px-2 py-1 transition-all rounded-md text-white bg-green-600 modal-open">รีวิว</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+          <!--Datatables -->
+        </div>
+      </div>
+      <!--Modal-->
+      <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full opacity-0 pointer-events-none modal"
+        id="order_info">
+        <div class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
+
+        <div
+          class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close">
+          <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+            viewBox="0 0 18 18">
+            <path
+              d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+            </path>
+          </svg>
+          <span class="text-sm">(Esc)</span>
+        </div>
+        <div class="z-50 mx-auto overflow-x-hidden bg-white rounded shadow-lg modal-container w-7/12 h-5/6">
+
+          <!-- Add margin if you want to see some of the overlay behind the modal-->
+          <div class="modal-content text-left relative w-full h-full">
+            <!--Title-->
+            <div class="flex justify-center h-16">
+              <button class="py-2 font-semibold tracking-wider text-white bg-indigo-500 hover:bg-indigo-600 w-full">รายละเอียดการสั่งซื้อ</button>
+            </div>
+            <div class="w-full h-5/6">
+              <div class="w-full h-auto bg-white absolute block" id="win_detail">
+                <table id="example" class="stripe hover w-full">
+                  <thead>
+                    <tr>
+                      <th data-priority="1" class="text-center">ลำดับ</th>
+                      <th data-priority="2" class="text-center">รูปสินค้า</th>
+                      <th data-priority="3" class="text-center">ชื่อหนังสือ</th>
+                      <th data-priority="4" class="text-center">ราคาเล่มละ</th>
+                      <th data-priority="5" class="text-center">จำนวน</th>
+                      <th data-priority="6" class="text-center">รวม</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center">1</td>
+                      <td class="text-center w-10"><img class="book" src="build/images/book.jpg" alt=""></td>
+                      <td class="text-center">คัมภีร์สุดยอดนักลงทุน</td>
+                      <td class="text-center">250</td>
+                      <td class="text-center w-10">1</td>
+                      <td class="text-center">250</td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">2</td>
+                      <td class="text-center w-10"><img class="book" src="build/images/book.jpg" alt=""></td>
+                      <td class="text-center">คัมภีร์สุดยอดนักลงทุน</td>
+                      <td class="text-center">250</td>
+                      <td class="text-center w-10">2</td>
+                      <td class="text-center">500</td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">3</td>
+                      <td class="text-center w-10"><img class="book" src="build/images/book.jpg" alt=""></td>
+                      <td class="text-center">คัมภีร์สุดยอดนักลงทุน</td>
+                      <td class="text-center">250</td>
+                      <td class="text-center w-10">3</td>
+                      <td class="text-center">750</td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full opacity-0 pointer-events-none modal"
+        id="review">
+        <div class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
+
+        <div
+          class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close">
+          <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+            viewBox="0 0 18 18">
+            <path
+              d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+            </path>
+          </svg>
+          <span class="text-sm">(Esc)</span>
+        </div>
+        <div class="z-50 mx-auto bg-white rounded shadow-lg modal-container w-7/12 relative h-4/6">
+
+          <!-- Add margin if you want to see some of the overlay behind the modal-->
+          <div class="modal-content text-left relative w-full h-full">
+            <!--Title-->
+            <p class="text-3xl ml-4 mt-4 mb-4">Review</p>
+            <textarea class="w-11/12 h-4/6 p-2 bg-gray-100 rounded"
+              style="position: relative; left:50%; transform:translate(-50%);" id="text_review"></textarea>
+            <div class="mt-4 text-center mb-4">
+              <button class="px-4 py-2 font-semibold tracking-wider text-white bg-green-500 rounded modal-close"
+                onclick="save_review(this)">บันทึก</button>
+              <button
+                class="px-4 py-2 font-semibold tracking-wider text-white bg-indigo-500 rounded hover:bg-indigo-600 modal-close">ปิด</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Script Modal -->
+      <script>
+        var openmodal = document.querySelectorAll('.modal-open')
+        let selectedModalTargetId = ''
+        for (var i = 0; i < openmodal.length; i++) {
+          openmodal[i].addEventListener('click', function (event) {
+            selectedModalTargetId = event.target.attributes.getNamedItem('data-target').value
+            event.preventDefault()
+            toggleModal()
+          })
+        }
+
+        const overlay = document.querySelector('.modal-overlay')
+        overlay.addEventListener('click', toggleModal)
+
+        var closemodal = document.querySelectorAll('.modal-close')
+        for (var i = 0; i < closemodal.length; i++) {
+          closemodal[i].addEventListener('click', toggleModal)
+        }
+
+        document.onkeydown = function (evt) {
+          evt = evt || window.event
+          var isEscape = false
+          if ("key" in evt) {
+            isEscape = (evt.key === "Escape" || evt.key === "Esc")
+          } else {
+            isEscape = (evt.keyCode === 27)
+          }
+          if (isEscape && document.body.classList.contains('modal-active')) {
+            toggleModal()
+          }
+        }
+
+        function toggleModal() {
+          if (!selectedModalTargetId) {
+            return
+          }
+          const body = document.querySelector('body')
+          const modal = document.getElementById(selectedModalTargetId)
+          modal.classList.toggle('opacity-0')
+          modal.classList.toggle('pointer-events-none')
+          body.classList.toggle('modal-active')
+        }
+      </script>
+
+      <!-- Panels -->
+
+      <!-- Settings Panel -->
+      <!-- Backdrop -->
+      <div x-show="isSettingsPanelOpen" class="fixed inset-0 bg-black bg-opacity-50"
+        @click="isSettingsPanelOpen = false" aria-hidden="true"></div>
+      <!-- Panel -->
+      <section x-transition:enter="transform transition-transform duration-300"
+        x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+        x-transition:leave="transform transition-transform duration-300" x-transition:leave-start="translate-x-0"
+        x-transition:leave-end="translate-x-full" x-show="isSettingsPanelOpen"
+        class="fixed inset-y-0 right-0 w-64 bg-white border-l border-indigo-100 rounded-l-3xl">
+        <div class="px-4 py-8">
+          <h2 class="text-lg font-semibold">Settings</h2>
+        </div>
+      </section>
+
+
+
+      <!-- Author links -->
+      <div class="fixed flex items-center space-x-4 bottom-20 right-5 sm:bottom-5">
+        <a href="https://twitter.com/ak_kamona" target="_blank" class="transition-transform transform hover:scale-125">
+          <span class="sr-only">Twitter</span>
+          <svg aria-hidden="true" class="w-8 h-8 text-blue-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24">
+            <path
+              d="M19.633,7.997c0.013,0.175,0.013,0.349,0.013,0.523c0,5.325-4.053,11.461-11.46,11.461c-2.282,0-4.402-0.661-6.186-1.809 c0.324,0.037,0.636,0.05,0.973,0.05c1.883,0,3.616-0.636,5.001-1.721c-1.771-0.037-3.255-1.197-3.767-2.793 c0.249,0.037,0.499,0.062,0.761,0.062c0.361,0,0.724-0.05,1.061-0.137c-1.847-0.374-3.23-1.995-3.23-3.953v-0.05 c0.537,0.299,1.16,0.486,1.82,0.511C3.534,9.419,2.823,8.184,2.823,6.787c0-0.748,0.199-1.434,0.548-2.032 c1.983,2.443,4.964,4.04,8.306,4.215c-0.062-0.3-0.1-0.611-0.1-0.923c0-2.22,1.796-4.028,4.028-4.028 c1.16,0,2.207,0.486,2.943,1.272c0.91-0.175,1.782-0.512,2.556-0.973c-0.299,0.935-0.936,1.721-1.771,2.22 c0.811-0.088,1.597-0.312,2.319-0.624C21.104,6.712,20.419,7.423,19.633,7.997z">
+            </path>
+          </svg>
+        </a>
+        <a href="https://github.com/Kamona-WD" target="_blank" class="transition-transform transform hover:scale-125">
+          <span class="sr-only">Github</span>
+          <svg aria-hidden="true" class="w-8 h-8 text-black" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12.026,2c-5.509,0-9.974,4.465-9.974,9.974c0,4.406,2.857,8.145,6.821,9.465 c0.499,0.09,0.679-0.217,0.679-0.481c0-0.237-0.008-0.865-0.011-1.696c-2.775,0.602-3.361-1.338-3.361-1.338 c-0.452-1.152-1.107-1.459-1.107-1.459c-0.905-0.619,0.069-0.605,0.069-0.605c1.002,0.07,1.527,1.028,1.527,1.028 c0.89,1.524,2.336,1.084,2.902,0.829c0.091-0.645,0.351-1.085,0.635-1.334c-2.214-0.251-4.542-1.107-4.542-4.93 c0-1.087,0.389-1.979,1.024-2.675c-0.101-0.253-0.446-1.268,0.099-2.64c0,0,0.837-0.269,2.742,1.021 c0.798-0.221,1.649-0.332,2.496-0.336c0.849,0.004,1.701,0.115,2.496,0.336c1.906-1.291,2.742-1.021,2.742-1.021 c0.545,1.372,0.203,2.387,0.099,2.64c0.64,0.696,1.024,1.587,1.024,2.675c0,3.833-2.33,4.675-4.552,4.922 c0.355,0.308,0.675,0.916,0.675,1.846c0,1.334-0.012,2.41-0.012,2.737c0,0.267,0.178,0.577,0.687,0.479 C19.146,20.115,22,16.379,22,11.974C22,6.465,17.535,2,12.026,2z">
+            </path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
+  <script>
+    const setup = () => {
+      return {
+        isSidebarOpen: false,
+        currentSidebarTab: null,
+        isSettingsPanelOpen: false,
+        isSubHeaderOpen: false,
+        watchScreen() {
+          if (window.innerWidth <= 1024) {
+            this.isSidebarOpen = false
+          }
+        },
+      }
+    }
+    const save_review = (btn) => {
+      btn.classList.add("hidden");
+      btn_review.innerText = "ดูการรีวิว";
+      $("#text_review").prop("readonly", true);
+    }
+
+  </script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var table = $('#example').DataTable({
+        responsive: true
+      })
+        .columns.adjust()
+        .responsive.recalc();
+    });
+
+  </script>
+  </div>
+
+
+</body>
+
+</html>
