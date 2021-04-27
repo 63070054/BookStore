@@ -590,6 +590,7 @@
         </table>
         <hr class="pb-6 mt-6">
         <div class="my-4 mt-6 -mx-2 lg:flex">
+          
           <div class="lg:px-2 lg:w-1/2">
             <div class="p-4 bg-gray-100 rounded-full">
               <h1 class="ml-2 font-bold uppercase">รายละเอียดเพิ่มเติม</h1>
@@ -597,15 +598,17 @@
             <div class="p-4">
               <p class="mb-4 italic">If you have some information for the seller you can leave them in the box below</p>
               <textarea class="w-full h-24 p-2 bg-gray-100 rounded"></textarea>
-              <a href="index.html">
-                <button
-                class="px-4 py-2 font-semibold tracking-wider text-white bg-indigo-500 rounded hover:bg-indigo-600">ย้อนกลับ</button>
-            </a>
-            <button onclick="calculate()"
-                class="px-4 py-2 font-semibold tracking-wider text-indigo-600 bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">คำนวณราคาใหม่</button>
-            <button onclick="delete_row()"
-                class="px-4 py-2 font-semibold tracking-wider text-indigo-600 bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">ลบรายการทั้งหมด</button>
             </div>
+            <a href="index.html">
+              <button
+              class="py-2 font-semibold tracking-wider text-white bg-indigo-500 rounded hover:bg-indigo-600 px-2 mb-1 w-full rounded-full">ย้อนกลับ</button>
+          </a>
+          <br>
+          <button onclick="calculate()"
+              class="mb-1 px-2 py-2 font-semibold tracking-wider text-indigo-600 bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 w-full rounded-full">คำนวณราคาใหม่</button>
+          <br>
+          <button onclick="delete_row()"
+              class="mb-1 px-2 py-2 font-semibold tracking-wider text-indigo-600 bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 w-full rounded-full">ลบรายการทั้งหมด</button>
           </div>
           <div class="lg:px-2 lg:w-1/2">
             <div class="p-4 bg-gray-100 rounded-full">
@@ -732,11 +735,10 @@
 // }
 //}
 const calculate = () => {
-  console.log(parseFloat($("#price2").text().replace(',', '')));
-    total1.innerText = (parseFloat($("#price1").text().replace(',', '')) * parseInt(amount1.value)).toFixed(2);
-    total2.innerText = (parseFloat($("#price2").text().replace(',', '')) * parseInt(amount2.value)).toFixed(2);
-    total3.innerText = (parseFloat($("#price3").text().replace(',', '')) * parseInt(amount3.value)).toFixed(2);
-    all_total.innerText = (parseFloat(total1.innerText) + parseFloat(total2.innerText) + parseFloat(total3.innerText)).toFixed(2) + " ฿";
+    total1.innerText = (parseFloat($("#price1").text().replace(',', '')) * parseInt(amount1.value)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    total2.innerText = (parseFloat($("#price2").text().replace(',', '')) * parseInt(amount2.value)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    total3.innerText = (parseFloat($("#price3").text().replace(',', '')) * parseInt(amount3.value)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    all_total.innerText = (parseFloat($("#total1").text().replace(',', '')) + parseFloat($("#total2").text().replace(',', '')) + parseFloat($("#total3").text().replace(',', ''))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + " ฿";
 }
 const delete_row = () => {
     row1.remove();

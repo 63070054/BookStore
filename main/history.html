@@ -656,7 +656,7 @@
           </div>
         </div>
 
-        <div id='recipients' class="p-8 mt-2 bg-white rounded shadow lg:mt-6 lg:mt-0 mx-auto w-8/12 h-3/6">
+        <div id='recipients' class="p-8 mt-2 bg-white rounded shadow lg:mt-6 mx-auto w-full h-auto lg:mt-6 lg:mt-0">
 
 
           <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
@@ -674,7 +674,7 @@
                 <td class="text-center">001</td>
                 <td class="text-center">
                   <div><button data-toggle="modal" data-target="order_info"
-                      class="px-2 py-1 text-white transition-all rounded-md bg-blue-500 modal-open">ดูทั้งหมด</button>
+                      class="px-2 py-1 text-white transition-all rounded-md bg-blue-500 modal-open">view</button>
                   </div>
                 </td>
                 <td class="text-center">100</td>
@@ -692,7 +692,7 @@
                 <td class="text-center">002</td>
                 <td class="text-center">
                   <div><button data-toggle="modal" data-target="order_info"
-                      class="px-2 py-1 text-white transition-all rounded-md bg-blue-500 modal-open">ดูทั้งหมด</button>
+                      class="px-2 py-1 text-white transition-all rounded-md bg-blue-500 modal-open">view</button>
                   </div>
                 </td>
                 <td class="text-center">200</td>
@@ -924,12 +924,13 @@
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
   <script>
     $(document).ready(function () {
-      var table = $('#example').DataTable({
-        responsive: true
-      })
-        .columns.adjust()
-        .responsive.recalc();
-    });
+
+var table = $('#example').DataTable({
+    responsive: true
+})
+    .columns.adjust()
+    .responsive.recalc();
+});
 
   </script>
   </div>
