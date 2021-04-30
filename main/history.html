@@ -731,7 +731,7 @@
           </svg>
           <span class="text-sm">(Esc)</span>
         </div>
-        <div class="z-50 mx-auto overflow-x-hidden bg-white rounded shadow-lg modal-container w-7/12 h-5/6">
+        <div class="z-50 mx-auto overflow-x-hidden bg-white rounded shadow-lg modal-container w-full h-5/6">
 
           <!-- Add margin if you want to see some of the overlay behind the modal-->
           <div class="modal-content text-left relative w-full h-full">
@@ -741,7 +741,7 @@
             </div>
             <div class="w-full h-5/6">
               <div class="w-full h-auto bg-white absolute block" id="win_detail">
-                <table id="example" class="stripe hover w-full">
+                <table id="example_2" class="stripe hover w-full">
                   <thead>
                     <tr>
                       <th data-priority="1" class="text-center">ลำดับ</th>
@@ -929,12 +929,23 @@
   <script>
     $(document).ready(function () {
 
+      
 var table = $('#example').DataTable({
     responsive: true
 })
     .columns.adjust()
     .responsive.recalc();
 });
+$(document).ready(function () {
+
+      
+var table2 = $('#example_2').DataTable({
+    responsive: true
+})
+    .columns.adjust()
+    .responsive.recalc();
+});
+
 
   </script>
   </div>

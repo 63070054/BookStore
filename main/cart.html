@@ -270,7 +270,9 @@
                     </ul>
                   </div>
                 </div>
-
+              </div>
+            </div>
+            
                 <script>
                   function select(config) {
                     return {
@@ -667,17 +669,15 @@
                   17,859.3 ฿
                 </div>
               </div>
-              <a href="history.html"><!--link to pay page-->
-                <button
-                  class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
-                  <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                    <path fill="currentColor"
-                      d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
-                  </svg>
-                  <span class="ml-2 mt-5px">ดำเนินการต่อ</span>
-                </button>
-              </a>
+              <button data-toggle="modal" data-target="fill_information"
+                class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none modal-open">
+                <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                  <path fill="currentColor"
+                    d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z" />
+                </svg>
+                <span class="ml-2 mt-5px">ดำเนินการต่อ</span>
+              </button>
             </div>
           </div>
         </div>
@@ -720,7 +720,130 @@
       </div>
     </div>
   </footer>
+  <div class="fixed top-0 left-0 flex items-center justify-center w-full h-full opacity-0 pointer-events-none modal"
+                id="fill_information">
+                <div class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
 
+                <div
+                    class="z-50 w-11/12 mx-auto h-full overflow-y-scroll bg-white rounded shadow-lg modal-container">
+
+                    <div 
+                        class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close">
+                        <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18"
+                            height="18" viewBox="0 0 18 18">
+                            <path
+                                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <!-- Add margin if you want to see some of the overlay behind the modal-->
+                    <div class="px-6 py-4 text-left modal-content">
+                        <!--Title-->
+                        <div class="flex items-center justify-between pb-3">
+                            <p class="text-2xl font-bold">ข้อมูลการสั่งซื้อ</p>
+                            <div class="z-50 cursor-pointer modal-close">
+                                <svg class="text-black fill-current" xmlns="http://www.w3.org/2000/svg"
+                                    width="18" height="18" viewBox="0 0 18 18">
+                                    <path
+                                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                         <div class="mb-4">กรุณากรอกรายละเอียดการสั่งซื้อให้ครบถ้วน ถ้าคุณเคยสั่งซื้อหรือเป็นสมาชิกอยู่แล้ว <a href="#" class="text-indigo-500">คลิกที่นี่เพื่อล็อกอิน</a></div>
+                         <div class="mb-4">
+                            <div class="flex flex-row justify-center space-x-2">
+                                <div class="flex flex-col w-1/2">
+                                    <label class="text-lg text-gray-600">ชื่อ <span
+                                            class="text-red-500">*</span></label></br>
+                                    <input type="text"
+                                        class="w-full p-2 border-2 border-gray-300 rounded-md"
+                                        name="title" id="title" value="" required></input>
+                                </div>
+                                <div class="flex flex-col w-1/2">
+
+                                    <label class="text-lg text-gray-600">นามสกุล <span
+                                            class="text-red-500">*</span></label></br>
+                                    <input type="text"
+                                        class="w-full p-2 border-2 border-gray-300 rounded-md"
+                                        name="description" id="description" required></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-indigo-500 text-xs mb-4">หากต้องการใบเสร็จรับเงินเพื่อใช้หักลดหย่อนภาษี กรุณากรอกเลขประจำตัวผู้เสียภาษี (เลขบัตรประจำตัวประชาชน) และตรวจสอบความถูกต้องของ ชื่อ-นามสกุล ก่อนส่งคำสั่งซื้อ (ข้อกำหนดและเงื่อนไขต่างๆ เป็นไปตามที่รัฐบาลประกาศ)</div>
+                        <div class="mb-4">
+                                <div class="flex flex-col w-full">
+
+                                    <label class="text-lg text-gray-600"> เลขบัตรประจำตัวประชาชน <span
+                                            class="text-red-500">*</span></label></br>
+                                    <input type="text"
+                                        class="w-full p-2 border-2 border-gray-300 rounded-md"
+                                        name="description" id="description" required></input>
+                                </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex flex-row justify-center space-x-2">
+                                <div class="flex flex-col w-1/2">
+                                    <label class="text-lg text-gray-600">อีเมล <span
+                                            class="text-red-500">*</span></label></br>
+                                    <input type="text"
+                                        class="w-full p-2 border-2 border-gray-300 rounded-md"
+                                        name="title" id="title" value="" required></input>
+                                </div>
+                                <div class="flex flex-col w-1/2">
+
+                                    <label class="text-lg text-gray-600">โทรศัพท์ <span
+                                            class="text-red-500">*</span></label></br>
+                                    <input type="text"
+                                        class="w-full p-2 border-2 border-gray-300 rounded-md"
+                                        name="description" id="description" required></input>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex flex-col w-full">
+
+                                <label class="text-lg text-gray-600"> ที่อยู่ <span
+                                        class="text-red-500">*</span></label></br>
+                                <input type="text"
+                                    class="w-full p-2 border-2 border-gray-300 rounded-md"
+                                    name="description" id="address" required></input>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <input type="checkbox" onclick="hide_address()" id="check_address">
+                            <label>ใช้ที่อยู่ตามบัตรประชาชน</label><br>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex flex-col w-full">
+
+                                <label class="text-lg text-gray-600"> วิธีการชำระเงิน <span
+                                        class="text-red-500">*</span></label></br>
+                                <div class="col-span-6 sm:col-span-3">
+                                    <select id="Book_Type" name="Book_Type" autocomplete="Book_Type"
+                                        class="block w-full px-3 py-2 bg-white border-2 border-gray-300 rounded-md ">
+                                        <option>ธนาคารไทยพาณิชย์ (SCB)</option>
+                                        <option>ธนาคารกสิกรไทย (KBANK)</option>
+                                        <option>ธนาคารกรุงเทพ (BBC)</option>
+                                        <option>ธนาคารออมสิน (GSB)</option>
+                                        <option>ธนาคารกรุงศรี (BAY)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center mb-4">
+                            <button
+                                class="px-4 py-2 font-semibold tracking-wider text-indigo-600 bg-indigo-100 rounded hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 modal-close">ส่งคำสั่งซื้อหนังสือ</button>
+                            <button
+                                class="px-4 py-2 font-semibold tracking-wider text-white bg-indigo-500 rounded hover:bg-indigo-600 modal-close">ปิด</button>
+                        </div>
+                        
+                    </div>
 
 </body>
 
@@ -746,5 +869,47 @@ const delete_row = () => {
     row3.remove();
 }
 </script>
+<script>
+  var openmodal = document.querySelectorAll('.modal-open')
+  let selectedModalTargetId = ''
+  for (var i = 0; i < openmodal.length; i++) {
+      openmodal[i].addEventListener('click', function (event) {
+          selectedModalTargetId = event.target.attributes.getNamedItem('data-target').value
+          event.preventDefault()
+          toggleModal()
+      })
+  }
 
+  const overlay = document.querySelector('.modal-overlay')
+  overlay.addEventListener('click', toggleModal)
+
+  var closemodal = document.querySelectorAll('.modal-close')
+  for (var i = 0; i < closemodal.length; i++) {
+      closemodal[i].addEventListener('click', toggleModal)
+  }
+
+  document.onkeydown = function (evt) {
+      evt = evt || window.event
+      var isEscape = false
+      if ("key" in evt) {
+          isEscape = (evt.key === "Escape" || evt.key === "Esc")
+      } else {
+          isEscape = (evt.keyCode === 27)
+      }
+      if (isEscape && document.body.classList.contains('modal-active')) {
+          toggleModal()
+      }
+  }
+
+  function toggleModal() {
+      if (!selectedModalTargetId) {
+          return
+      }
+      const body = document.querySelector('body')
+      const modal = document.getElementById(selectedModalTargetId)
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+      body.classList.toggle('modal-active')
+  }
+</script>
 </html>
